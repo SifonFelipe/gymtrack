@@ -1,0 +1,19 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<p>{{title}}</p>
+<p>{{creator}}</p>
+<p>{{date}}</p>
+<p>{{group}}</p>
+<p>{{content}}</p>
+
+<form method="POST">
+    {% csrf_token %}
+    <input placeholder="Write your comment..." type="text" name="comment" />
+    <input type="submit" value="submit" />
+</form>
+
+{% for comment in comments %}
+    <p>{{comment.content}}</p>
+{% endfor %}
+{% endblock content %}

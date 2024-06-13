@@ -1,0 +1,93 @@
+.chat-box {
+    width: 80%; /* Set the width of the chat box */
+    border: 0.5px solid #000000; /* Add border */
+    overflow-y: scroll; /* Enable vertical scroll if messages exceed height */
+    padding: 10px; /* Add padding inside the chat box */
+    background: #2f1a3dbb
+  }
+
+.message {
+    background-color: #141414; /* Background color for messages */
+    margin: 10px 0; /* Add margin between messages */
+    padding: 10px; /* Add padding inside message box */
+    border-radius: 10px; /* Add rounded corners */
+    max-width: 70%; /* Limit width of message to make it look like chat bubble */
+    color: antiquewhite;
+    font-family: 'Helvetica';
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+    word-wrap: break-word; /* Wrap long words onto the next line */
+}
+  
+.message.sent {
+    background-color: #DCF8C6; /* Background color for sent messages */
+    align-self: flex-end; /* Align sent messages to the right */
+}
+
+/* Scrollbar for Webkit browsers (e.g., Chrome, Safari) */
+.chat-box::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .chat-box::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+  }
+  
+  .chat-box::-webkit-scrollbar-track {
+    background-color: #464646;
+  }
+
+  .messageBox {
+    width: 20%;
+    height: 40px;
+    display: flex;
+    align-items: left;
+    justify-content: left;
+    background-color: #2d2d2d;
+    padding: 0 15px;
+    border-radius: 10px;
+    border: 1px solid rgb(63, 63, 63);
+  }
+  .messageBox:focus-within {
+    border: 1px solid rgb(110, 110, 110);
+  }
+
+#message {
+  width: 200px;
+  height: 100%;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  padding-left: 10px;
+  color: white;
+}
+#message:focus ~ #sendButton svg path,
+#message:valid ~ #sendButton svg path {
+  fill: #3c3c3c;
+  stroke: white;
+}
+
+#sendButton {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  display: flex;
+  align-items: end;
+  justify-content: end;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+#sendButton svg {
+  height: 18px;
+  transition: all 0.3s;
+  width: auto;
+}
+#sendButton svg path {
+  transition: all 0.3s;
+}
+#sendButton:hover svg path {
+  fill: #3c3c3c;
+  stroke: white;
+}

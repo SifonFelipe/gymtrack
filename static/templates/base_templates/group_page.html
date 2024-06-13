@@ -1,0 +1,77 @@
+{% extends 'main.html' %}
+
+
+{% block content%}
+{% load static %}
+<center>
+    <h1 class="title">{{group.name}}</h1>
+    <small class="simple-text">by: </small>
+    <a href="{% url 'profile-view' group.host.username %}" style="text-align: end;"><small class="simple-text">{{group.host}}</small></a>
+    <small class="simple-text" style="margin-left: 5%; vertical-align: middle;"> Topic: </small>
+    <a href="{% url 'home' %}?q={{group.topic}}"><small class="simple-text" >{{group.topic}}</small></a>
+</center>
+</div>
+<div class="home-design">
+    <div style=" padding: 10px; padding-right: 20%">
+        {% if request.user.username == group.host.username %}
+            <div>
+                <form action="{% url 'deletegroup-page' group.id %}">
+                    <button id="delete" type="submit" class="button modify-button" style="margin-right: 30%;">Delete Group</button>
+                </form>
+
+                <form action="{% url 'editgroup-page' group.id %}">
+                    <button id="edit" type="submit" class="button modify-button">Edit</button>
+                </form>
+
+            </div>
+        {% endif %}
+
+        <p class="group-title">About the group...</p>
+        <p class="simple-text">{{group.description}}</p>
+
+        <form action="{% url 'group-chat' group.name %}">
+            <button type="submit" style="margin-bottom: 2%; align-self: flex-end;" class="edit-button">Group Chat</button>
+        </form>
+
+        {% if request.user not in participants %}
+            <form method="POST">
+                {% csrf_token %}
+                <button type="submit" class="button-group" name="join-group">Join Group</button>
+            </form>
+
+        {% else %}
+
+            <form method="POST">
+                {% csrf_token %}
+                <button type="submit" name="leave-group" style="background-color: red" class="button-group">Leave Group</button>
+            </form>
+
+        {% endif %}
+
+        <p class="group-title">Some Articles...</p>
+        {% for article in articles %}
+            <hr>
+            <a href="{% url 'view-article' article.id %}"><p class="group-title" style="font-size: 100%">{{article.title}}</p></a>
+            <p class="simple-text">{{article.user}}</p>
+            <p class="simple-text">{{article.created}}</p>
+        {% endfor %}
+
+    </div>
+
+    <div>
+        <p class="simple-text">Joined</p>
+        <ul style="list-style-type: none; margin-left: -13%" class="simple-text" class="list-container">
+            {% for participant in participants %}
+                <li><a class='list-items' href="{% url 'profile-view' participant.username %}">{{participant.username}}</a></li>
+            {% endfor %}
+        </ul>
+
+        {% if request.user in participants%}
+            <form action="{% url 'create-article' group.id %}">
+                <button type="submit" class="edit-button" style="margin-top: 28%; padding: 3% 3%">Create Article</button>
+            </form>
+        {% endif %} 
+    </div>
+</div>
+
+{% endblock content %}

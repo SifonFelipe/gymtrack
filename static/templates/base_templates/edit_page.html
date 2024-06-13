@@ -1,0 +1,34 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+    <form method="POST" action="">
+        {% csrf_token %}
+
+        <label>Group Name</label>
+        <input required type="text" name="name" value="{{group.name}}" />
+
+        <label>Group Description</label>
+        <input required type="text" name="description" value="{{group.description}}" />
+
+        <label>Group Topic</label>
+        <input required type="text" name="topic" list="topic-list" value="{{group.topic}}" />
+        <datalist id="topic-list">
+            <select id="group-topic">
+                {% for topic in topics %}
+                    <option value="{{topic.name}}"></option>
+                {% endfor %}
+            </select>
+        </datalist>
+
+        {% if mode == 'edit' %}
+            <input type="submit" value="Update" />
+
+        {% else %}
+
+            <input type="submit" value="Create" />
+        {% endif %}
+
+    </form>
+
+{% endblock content %}

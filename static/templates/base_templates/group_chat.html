@@ -1,0 +1,57 @@
+{% extends 'main.html' %}
+
+{% load static %}
+
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/messages.css' %}" >
+</head>
+
+<div style="margin: 2%">
+    <h1 class="title">{{group.name}}</h1>
+    <p class="simple-text">{{group.description}}</p>
+
+
+    <div id="mensajes_de_grupo" class="chat-box">
+        {% for message in messages %}
+            <p class="message">{{message.user}}: {{message.content}}</p>
+        {% endfor %}
+    </div>
+
+<div class="messageBox" style="display: flex;">
+    <form method="POST" style="display: flex; align-items: center;">
+        {% csrf_token %}
+        <input required="" placeholder="Message..." type="text" id="message" name="message" />
+        <button id="sendButton" type="submit">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 664 663">
+            <path
+                fill="none"
+                d="M646.293 331.888L17.7538 17.6187L155.245 331.888M646.293 331.888L17.753 646.157L155.245 331.888M646.293 331.888L318.735 330.228L155.245 331.888"
+            ></path>
+            <path
+                stroke-linejoin="round"
+                stroke-linecap="round"
+                stroke-width="33.67"
+                stroke="#6c6c6c"
+                d="M646.293 331.888L17.7538 17.6187L155.245 331.888M646.293 331.888L17.753 646.157L155.245 331.888M646.293 331.888L318.735 330.228L155.245 331.888"
+            ></path>
+            </svg>
+        </button>
+    </form>
+</div>
+
+
+    <!--
+    <form method="POST" action="">
+        {% csrf_token %}
+        <input type="text" name="message" placeholder="write your message..." />
+        <input type="submit" value="Send" />
+    </form>
+    -->
+</div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="{% static 'javascript/mensajes_ajax.js' %}"></script>
+
+{% endblock content %}

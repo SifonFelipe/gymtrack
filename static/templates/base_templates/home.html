@@ -1,0 +1,51 @@
+{% extends 'main.html'%}
+
+{% block content %}
+
+{% load static %}
+
+    <center>
+    <h1 class="title">GYMPAGE FOR GYMBROS</h1>
+    </center>
+    <p class="simple-text" style="margin-top: -4%; font-style: italic; text-align: end; margin-right: 10%">made by gymdevs</p>
+</div>
+
+<div class="home-design">
+    <div>
+        <p class="simple-text">{{group_count}} Groups matched</p>
+        {% if group_count != 0 %}
+            {% for group in groups %}
+                <hr>
+                <h3><a class="group-title" href="{% url 'group' group.name %}">{{group.name}}</a></h3>
+                <small class="simple-text">by: </small>
+                <a href="{% url 'profile-view' group.host.username %}"><small class="simple-text" style="font-weight: bold">{{group.host}}</small></a>
+                <a href="{% url 'home' %}?q={{group.topic}}"><small class="simple-text" style="margin-left: 10%; vertical-align: middle; font-weight: bold">{{group.topic}}</small></a>
+                <small><p class="simple-text" style="margin-top:-30px; margin-left: 70%; vertical-align: middle; color:pink; font-weight: bold">{{group.participants.count}}🦈</p></small>
+                <p class="simple-text" style="margin-top: 2%;">{{group.description}}</p>
+            {% endfor %}
+        {% else %}
+            <p class="title" style="text-align: center;">No groups found</p>
+        {% endif %}
+
+    </div>
+
+    <div>
+        <form action="{% url 'create-group' %}">
+            <button type="submit" style="margin-left: 10%;" class="button-group">Create Group</button>
+        </form>
+
+        <ul class="list-container">
+            <li><a class='list-items' href="{% url 'home' %}">All</a></li>
+
+            {% for topic in topics %}
+                <li><a class='list-items' href="{% url 'home' %}?q={{topic.name}}" name="q">{{topic.name}}</a></li>
+            {% endfor %}
+
+            {% if topics_count > 0 %}
+                <li class="list-items">{{topics_count}} topics remaining</li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
+
+{% endblock content %}

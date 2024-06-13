@@ -1,0 +1,15 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+    <form method="POST" action="">
+        {% csrf_token %}
+
+        <label>Bio</label>
+        <input type="text" name="bio" value="{{profile.bio}}" />
+
+        <input type="submit" value="Update" />
+
+    </form>
+
+{% endblock content %}

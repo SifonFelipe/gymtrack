@@ -1,0 +1,57 @@
+.fc-daygrid-day-number {
+    color: antiquewhite;
+    text-decoration: none;
+}
+
+.fc-col-header-cell-cushion {
+    color: white;
+    text-decoration: none;
+}
+
+.fc-toolbar-title {
+    color: white;
+}
+
+#calendar {
+    width: 95%;
+    height: 60%; 
+    align-self: center;
+    font-family: "Space Grotesk", sans-serif;
+}
+.fc-daygrid-day {
+    width: 15%; 
+    height: 15%;
+}
+
+.fc-theme-standard .fc-scrollgrid {
+    border-width: 15px; /* Change to your desired thickness */
+}
+
+.fc-theme-standard td, .fc-theme-standard th {
+    border: 10px solid;
+    border-color: rgb(210, 111, 89);
+}
+
+  /* Change the border thickness of the table cells */
+.fc-daygrid-day {
+    border-width: 1px; /* Change to your desired thickness */
+}
+
+.fc-event-title {
+    white-space: normal; /* Allow text wrapping */
+    overflow: hidden; /* Hide overflow */
+}
+
+.modal-title {
+  text-decoration: solid;
+  font-weight: bold;
+  font-size: larger;
+  text-align: center;
+}
+
+.modal-content {
+  background-color: rgba(27, 27, 41, 0.913);
+  color: white;
+  font-family: "Space Grotesk", sans-serif;
+}
+

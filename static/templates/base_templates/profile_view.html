@@ -1,0 +1,44 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<center>
+<h1 class="title" style="margin-top: 4%;">@{{profile.user}}</h1>
+
+{% if profile.bio != '' %}
+    <p class="simple-text" style="margin-top: -3%; font-size:x-large">{{profile.bio}}</p>
+{% else %}
+    <p class="simple-text" style="text-align: center; color:gray">No bio yet.</p>
+{% endif %}
+
+{% if request.user == profile.user %}
+    <form action="{% url 'profile-edit' profile.user%}">
+        <button type="submit" class="edit-button">Edit</button>
+    </form>
+{% endif %}
+
+</center>
+</div>
+
+<div style="margin-left: 3%">
+    <h3 class="group-title">Today Exercises:</h3>
+    {% if went_to_gym == True %}
+        {% for exercise in exercises %}
+            {% if exercise.weight == 0 %}
+                <p class="simple-text">{{exercise.exercise}} {{exercise.series}}x{{exercise.reps}}, Bodyweight</p>
+            {% else %}
+                <p class="simple-text">{{exercise.exercise}} {{exercise.series}}x{{exercise.reps}}, {{exercise.weight}}kg</p>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <p class="simple-text">{{exercises}}</p>
+    {% endif %}
+
+    {% if request.user == profile.user %}
+        <p class="group-title" style="font-size: 170%; font-weight: bold;">Didnt load your exercises?</p>
+        <p class="simple-text">Load them<a class="simple-text" style="font-weight: bold;" href="{% url 'track-page' profile.user %}"> here</a></p>
+        <p><a class="simple-text" href="{% url 'graph' %}" style="font-weight: bold;">See Exercises Graph</a></p>
+    {% endif %}
+</div>
+
+{% endblock content %}

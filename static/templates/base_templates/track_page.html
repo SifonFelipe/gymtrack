@@ -1,0 +1,82 @@
+{% extends 'main.html' %}
+
+{% load static %}
+
+{% block content %}
+<head>
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/brython@3.12.2/brython.min.js">
+    </script>
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/brython@3.12.2/brython_stdlib.js">
+    </script>
+    <style>
+    </style>
+</head>
+
+<body onload="brython()">
+    <button class="button-48" id="create_exercise_form" style="margin-bottom: 2%;" role="button"><span class="normal-text" style="color: black; font-weight: bold;">Add new exercise</span></button>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label class="normal-text" style="font-weight: bold;">Title: <input class="title-input" style="margin-bottom: 2.3%;" required type="text" name="title"/></label>
+        <div id="container">
+            <div id="forms"></div>
+            
+        </div>
+ 
+        <label class="normal-text" style="font-weight: bold; margin-right: 1%">Date</label>
+        <input required value="{{today}}" name="date" id="date" max="{{today}}" type="date"/>
+    
+        <p></p>
+
+        <button class="button-48" type="submit" name="Submit"><span class="normal-text" style="color: black; font-weight: bold;">Submit</span></button>
+        
+    
+    </form>
+
+    <script type="text/python">
+        from browser import document
+        from browser import bind
+        from browser import alert
+        from uuid import uuid4
+
+        def delete(ev):
+            count = 0
+            for elements in document.select('.exercise-input'):
+                count += 1
+
+            if count > 1:
+                form = 'form' + ev.currentTarget.attrs['data-id-delete']
+                document[form].html = ''
+
+        def add_form(value=""):
+            delete_button_id = str(uuid4())
+
+            form_name = 'form' + delete_button_id
+
+            form = document.createElement("div", id=form_name)
+            form.html = "<div id='{}' class='div-routine'> \
+                <label class='normal-text' style='color: rgb(248, 70, 70); font-weight: bold;'>Exercise: </label><input required type='text' class='exercise-input' name='exercise' maxlength='50' /><p> \
+                <label class='normal-text' style='color: rgb(103, 149, 241); font-weight: bold;'>Amount series: </label> <input required type='number' class='series-input' name='series' min='0' /><p>\
+                <label class='normal-text' style='color: rgb(255, 0, 230); font-weight: bold;'>Amount reps: </label> <input required type='number' class='reps-input' name='reps' min='0' /><p> \
+                <label class='normal-text' style='color: orange; font-weight: bold;'>Weight: </label> <input required type='number' class='weight-input' name='weight' min='0' /> \
+                <input type='button' value='delete' class='delete-form' data-id-delete='{}' /><hr> </div>".format(form_name, delete_button_id)
+
+            document['forms'].appendChild(form)
+
+            for delete_button in document.select('.delete-form'):
+                delete_button.bind("click", delete)
+
+
+        @bind(document['create_exercise_form'], "click")
+        def new(e):
+            add_form()
+
+        add_form()
+
+    </script>
+</body>
+
+{% endblock content %}

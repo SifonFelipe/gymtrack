@@ -1,0 +1,19 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<form method="POST" >
+    {% csrf_token %}
+    <input required type="text" name="exercise-input" list="exercise-list" />
+    <datalist id="exercise-list">
+        {% for exercise in datalist_exercises %}
+            <option value="{{exercise}}"></option>
+        {% endfor %}
+    </datalist>
+
+    <input type="submit" value="See Graph"/>
+</form>
+
+
+{{grafico|safe}}
+
+{% endblock %}

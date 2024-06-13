@@ -1,0 +1,16 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<form method="POST">
+    {% csrf_token %}
+    <label>Article Name:</label>
+    <input name="article_name" type="text" />
+
+    <label>Article Content:</label>
+    <input name="article_content" type="text" />
+
+    <input type="submit" value="Submit" />
+</form>
+
+{% endblock content %}
